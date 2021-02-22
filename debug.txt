@@ -1,0 +1,98 @@
+ 
+ 0000000000下移	置0	
+ 1010101010下移	0000000000
+ 1111111111下移	1010101010
+ 0101010101下移	1111111111
+*1111111111	0101010101
+
+
+ 0000000000	0000000000下移
+ 0000000000	0000000000下移	
+ 1010101010	1010101010下移	
+ 1111111111    *1111111111	
+*0101010101不动	0101010101      
+
+置0		0000000000	
+0000000000	0000000000	
+0000000000	*0000000000	为全0停止消层
+1010101010	*1010101010		
+0101010101	*0101010101		
+
+
+情况二
+ 0000000000下移	置0	  下称	置0	  下移	置0
+ 1010101010下移	0000000000下移	0000000000下移	0000000000
+ 1111111111下移	1010101010下移	0000000000下移	0000000000
+ 1111111111下移	1111111111下移	1010101010下移	*0000000000
+*1111111111     *1111111111	*1111111111	*1010101010
+
+	// 用来调试时在屏幕打印即时数据
+	HDC hdc;
+	char buffer[80];
+
+	if (FAILED( lpddsback->GetDC(&hdc) ))
+	   return(0);
+	// set the colors for the text up
+	SetTextColor(hdc,RGB(255,255,255) );
+	// set background mode to transparent so black isn't copied
+	SetBkMode(hdc, TRANSPARENT);
+
+
+	sprintf(buffer,"分数:%d",score);
+	TextOut(hdc,15,SCREEN_HEIGHT-20,buffer,strlen(buffer) );
+
+	sprintf(buffer,"grid_row:%d",grid_row);
+	TextOut(hdc,15,SCREEN_HEIGHT-180,buffer,strlen(buffer) );
+	sprintf(buffer,"grid_col:%d",grid_col);
+	TextOut(hdc,15,SCREEN_HEIGHT-170,buffer,strlen(buffer) );
+	sprintf(buffer,"speed_counter:%d",speed_counter);
+	TextOut(hdc,15,SCREEN_HEIGHT-160,buffer,strlen(buffer) );
+
+	sprintf(buffer,"block.cols:%d",block.cols);
+	TextOut(hdc,15,SCREEN_HEIGHT-150,buffer,strlen(buffer) );
+	sprintf(buffer,"fixcounter:%d",block.fixcounter);
+	TextOut(hdc,15,SCREEN_HEIGHT-140,buffer,strlen(buffer) );
+
+	for(i=0;i<20;i++)
+	{
+	 for(j=0;j<10; j++)
+	  {
+		sprintf(buffer,"%d", grid[i][j] );
+		TextOut(hdc,223+20*j, 400-(i+1)*20+7 ,buffer,strlen(buffer) );
+	  }
+	}
+
+	sprintf(buffer,"%d",top[0]);
+	TextOut(hdc,223,400-top[0], buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[1]);
+	TextOut(hdc,243,400-top[1],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[2]);
+	TextOut(hdc,263,400-top[2],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[3]);
+	TextOut(hdc,283,400-top[3],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[4]);
+	TextOut(hdc,303,400-top[4],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[5]);
+	TextOut(hdc,323,400-top[5],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[6]);
+	TextOut(hdc,343,400-top[6],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[7]);
+	TextOut(hdc,363,400-top[7],buffer,strlen(buffer) );
+	sprintf(buffer,"%d",top[8]);
+	TextOut(hdc,383,400-top[8],buffer,strlen(buffer) );	
+	sprintf(buffer,"%d",top[9]);
+	TextOut(hdc,403,400-top[9],buffer,strlen(buffer) );
+
+	sprintf(buffer,"x:%d",block.x);
+	TextOut(hdc,15,SCREEN_HEIGHT-50,buffer,strlen(buffer) );
+	sprintf(buffer,"y:%d",block.y);
+	TextOut(hdc,15,SCREEN_HEIGHT-40,buffer,strlen(buffer) );
+	sprintf(buffer,"width:%d",block.width[block.type][block.currentframe]);
+	TextOut(hdc,15,SCREEN_HEIGHT-30,buffer,strlen(buffer) );
+	sprintf(buffer,"height:%d",block.height[block.type][block.currentframe]);
+	TextOut(hdc,15,SCREEN_HEIGHT-20,buffer,strlen(buffer) );
+
+
+	lpddsback->ReleaseDC(hdc);
+
+
